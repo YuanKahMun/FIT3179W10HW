@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {"text": "Students per School by State — Grouped by Stage"},
-  "data": {"url": "data/compiled_my_basiced_districtenrolment.csv"},
+  "data": {"url": "https://yuankahmun.github.io/FIT3179W10HW/data/compiled_my_basiced_districtenrolment.csv"},
 
   "params": [
     {

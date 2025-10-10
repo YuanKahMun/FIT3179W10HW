@@ -29,14 +29,14 @@
 
     {
       "data": {
-        "url": "../data/malaysia_states.topojson",
+        "url": "https://yuankahmun.github.io/FIT3179W10HW//data/malaysia_states.topojson",
         "format": { "type": "topojson", "feature": "states" }
       },
   "mark": { "type": "geoshape", "fill": "#f2f2f2", "stroke": "white", "strokeWidth": 0.5 }
     },
 
     {
-      "data": { "url": "../data/compiled_my_basiced_districtenrolment.csv" },
+      "data": { "url": "https://yuankahmun.github.io/FIT3179W10HW/data/compiled_my_basiced_districtenrolment.csv" },
       "transform": [
         { "filter": "datum.stage == stageParam" },
         { "filter": "toString(datum.year) == toString(yearParam)" },
@@ -45,7 +45,7 @@
           "lookup": "state_norm",
           "from": {
             "data": {
-              "url": "../data/malaysia_states.topojson",
+              "url": "https://yuankahmun.github.io/FIT3179W10HW/data/malaysia_states.topojson",
               "format": { "type": "topojson", "feature": "states" }
             },
             "key": "properties.name",
@@ -74,7 +74,7 @@
     },
 
     {
-      "data": { "url": "../data/compiled_my_basiced_districtenrolment.csv" },
+      "data": { "url": "https://yuankahmun.github.io/FIT3179W10HW/data/compiled_my_basiced_districtenrolment.csv" },
       "transform": [
         { "filter": "datum.stage == stageParam" },
         { "filter": "toString(datum.year) == toString(yearParam)" },
