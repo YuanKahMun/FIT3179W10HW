@@ -1,0 +1,97 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": 
+  {
+  "text": "Basic Education Access Across Malaysian States — Primary & Secondary School Distribution",
+  "subtitle": "Student Enrolment Rate (per 1,000 Population)"
+  },
+  "width": 840,
+  "height": 520,
+  "projection": { "type": "mercator" },
+
+  "params": [
+    {
+      "name": "stageParam",
+      "value": "primary",
+      "bind": { "input": "select", "options": ["primary", "secondary"], "name": "Stage: " }
+    },
+    {
+      "name": "yearParam",
+      "value": "2022",
+      "bind": { "input": "select", "options": ["2017","2018","2019","2020","2021","2022"], "name": " Year: " }
+    }
+  ],
+
+  "layer": [
+    {
+      "data": {
+        "url": "../data/malaysia_states.topojson",
+        "format": { "type": "topojson", "feature": "states" }
+      },
+      "mark": { "type": "geoshape", "fill": "#f2f2f2", "stroke": "white", "strokeWidth": 0.5 }
+    },
+
+    {
+      "data": { "url": "../data/compiled_my_basiced_districtenrolment.csv" },
+      "transform": [
+        { "filter": "datum.stage == stageParam" },
+        { "filter": "toString(datum.year) == toString(yearParam)" },
+
+        {
+          "calculate": "indexof(datum.state,'W.p. ')==0 ? substring(datum.state,5) : datum.state",
+          "as": "state_norm"
+        },
+
+        {
+          "lookup": "state_norm",
+          "from": {
+            "data": {
+              "url": "../data/malaysia_states.topojson",
+              "format": { "type": "topojson", "feature": "states" }
+            },
+            "key": "properties.name",
+            "fields": ["type","properties","geometry"]
+          }
+        }
+      ],
+      "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 0.5 },
+      
+      "encoding": {
+        "color": {
+          "field": "students_per_1000_pop",
+          "type": "quantitative",
+          "title": "Enrolment rate per 1000 population",
+          "scale": {
+            "type": "quantize",
+            "domain": [0, 600],
+            "scheme": { "name": "browns", "count": 5 }
+          }
+        },
+
+        "tooltip": [
+          { "field": "state_norm", "title": "State" },
+          { "field": "stage", "title": "Stage" },
+          { "field": "year",  "title": "Year" },
+          { "field": "students_per_1000_pop", "title": "per 1,000", "format": ".1f" },
+          { "field": "students_per_school", "title": "per school", "format": ".1f" },
+          { "field": "students", "title": "Students", "format": "," },
+          { "field": "schools",  "title": "Schools",  "format": "," }
+        ]
+      }
+    }
+  ],
+
+
+
+  "config": {
+  "font": "DM Sans",
+  "title": { "font": "PT Serif", "fontSize": 18, "fontWeight": 700 },
+  "axis":  { "labelFont": "DM Sans", "titleFont": "PT Serif" },
+  "legend":{ "labelFont": "DM Sans", "titleFont": "PT Serif" },
+
+  "scale": { "invalid": { "color": { "value": "lightgray" } } },
+
+  "mark": { "invalid": "show" }
+}
+
+}
