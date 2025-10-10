@@ -88,7 +88,6 @@
       ],
       "mark": {
         "type": "text",
-        "font": "DM Sans",
         "fontSize": 12,
         "fontWeight": "bold",
         "dx": 6, "dy": -6
@@ -111,10 +110,6 @@
   ],
 
   "config": {
-    "font": "DM Sans",
-    "title": { "font": "PT Serif", "fontSize": 18, "fontWeight": 700 },
-    "axis":  { "labelFont": "DM Sans", "titleFont": "PT Serif" },
-    "legend":{ "labelFont": "DM Sans", "titleFont": "PT Serif" },
     "scale": { "invalid": { "color": { "value": "lightgray" } } },
     "mark": { "invalid": "show" }
   }

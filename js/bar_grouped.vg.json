@@ -1,0 +1,58 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {"text": "Students per School by State — Grouped by Stage"},
+  "data": {"url": "data/compiled_my_basiced_districtenrolment.csv"},
+
+  "params": [
+    {
+      "name": "YearSel",
+      "value": 2022,
+      "bind": {"input": "select", "options": [2017,2018,2019,2020,2021,2022], "name": " Year: "}
+    }
+  ],
+
+  "transform": [
+    {"filter": "datum.year == YearSel"},
+    {
+      "calculate": "indexof(datum.state,'W.p. ')==0 ? substring(datum.state,5) : datum.state",
+      "as": "state_norm"
+    }
+  ],
+
+  "mark": {"type": "bar"},
+
+  "encoding": {
+    "y": {
+      "field": "state_norm",
+      "type": "nominal",
+      "title": "State",
+      "sort": "-x",
+      "axis": {
+        "labelLimit": 180,
+        "labelPadding": 4
+      }
+    },
+    "yOffset": {"field": "stage"},     
+    "x": {
+      "aggregate": "mean",
+      "field": "students_per_school",
+      "type": "quantitative",
+      "title": "Students per School (mean)"
+    },
+    "color": {"field": "stage", "type": "nominal", "title": "Stage"},
+    "tooltip": [
+      {"field": "state_norm", "type": "nominal", "title": "State"},
+      {"field": "stage", "type": "nominal", "title": "Stage"},
+      {"aggregate": "mean", "field": "students_per_school", "type": "quantitative", "title": "Students per School", "format": ".1f"},
+      {"field": "schools", "type": "quantitative", "title": "Schools"},
+      {"field": "students", "type": "quantitative", "title": "Students"}
+    ]
+  },
+
+  "width": 720,
+  "height": {"step": 20},
+
+  "config": {
+    "view": {"stroke": null}
+  }
+}

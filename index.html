@@ -5,17 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Basic Education Access — Malaysia</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=PT+Serif:wght@700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 </head>
 <body>
-  <div id="vis"></div>
+
+  <div id="mapVis"></div>
+  <div id="barVis"></div>
+
 
   <script>
-    vegaEmbed("#vis", "js/choropleth_map.vg.json", {
+    const commonConfig = {
+        font: "DM Sans",
+        title: { font: "PT Serif", fontSize: 18, fontWeight: 700,
+            subtitleFont: "PT Serif", subtitleFontSize: 14},
+        axis:  { labelFont: "DM Sans", titleFont: "PT Serif", titleFontWeight: 700 },
+        legend:{ labelFont: "DM Sans", titleFont: "PT Serif", titleFontWeight: 700 },
+        header:{ labelFont: "DM Sans", titleFont: "PT Serif", titleFontWeight: 700 },
+        view:  { stroke: null }
+    };
+
+    vegaEmbed("#mapVis", "js/choropleth_map.vg.json", {
       actions: { export: true, source: true, compiled: true, editor: true }
     }).catch(console.error);
+
+
+      vegaEmbed("#barVis", "js/bar_grouped.vg.json", {
+        actions: { export: true, source: true, compiled: true, editor: true }
+    }).catch(console.error);
+
   </script>
 </body>
 </html>
