@@ -1,34 +1,38 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": 
-  {
-  "text": "Basic Education Access Across Malaysian States — Primary & Secondary School Distribution",
-  "subtitle": "Student Enrolment Rate (per 1,000 Population)"
+  "title": {
+    "text": "Basic Education Access Across Malaysian States — Primary & Secondary School Distribution",
+    "subtitle": "Student Enrolment Rate (per 1,000 Population)"
   },
   "width": 840,
   "height": 520,
-  "projection": { "type": "mercator" },
+
+  "projection": {
+    "type": "mercator",
+    "center": [109.3, 4.2],      
+    "scale": 1850,              
+    "translate": [420, 260]     
+  },
 
   "params": [
-    {
-      "name": "stageParam",
-      "value": "primary",
-      "bind": { "input": "select", "options": ["primary", "secondary"], "name": "Stage: " }
-    },
-    {
-      "name": "yearParam",
-      "value": "2022",
-      "bind": { "input": "select", "options": ["2017","2018","2019","2020","2021","2022"], "name": " Year: " }
-    }
+    { "name": "stageParam", "value": "primary",
+      "bind": { "input": "select", "options": ["primary","secondary"], "name": "Stage: " } },
+    { "name": "yearParam", "value": "2022",
+      "bind": { "input": "select", "options": ["2017","2018","2019","2020","2021","2022"], "name": " Year: " } }
   ],
 
   "layer": [
+    {
+      "data": { "graticule": { "step": [3, 3] } },
+  "mark": { "type": "geoshape", "fill": null, "stroke": "#d9d9d9", "strokeWidth": 0.5, "opacity": 0.8 }
+    },
+
     {
       "data": {
         "url": "../data/malaysia_states.topojson",
         "format": { "type": "topojson", "feature": "states" }
       },
-      "mark": { "type": "geoshape", "fill": "#f2f2f2", "stroke": "white", "strokeWidth": 0.5 }
+  "mark": { "type": "geoshape", "fill": "#f2f2f2", "stroke": "white", "strokeWidth": 0.5 }
     },
 
     {
@@ -36,12 +40,7 @@
       "transform": [
         { "filter": "datum.stage == stageParam" },
         { "filter": "toString(datum.year) == toString(yearParam)" },
-
-        {
-          "calculate": "indexof(datum.state,'W.p. ')==0 ? substring(datum.state,5) : datum.state",
-          "as": "state_norm"
-        },
-
+        { "calculate": "indexof(datum.state,'W.p. ')==0 ? substring(datum.state,5) : datum.state", "as": "state_norm" },
         {
           "lookup": "state_norm",
           "from": {
@@ -54,20 +53,14 @@
           }
         }
       ],
-      "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 0.5 },
-      
+  "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 0.5 },
       "encoding": {
         "color": {
           "field": "students_per_1000_pop",
           "type": "quantitative",
           "title": "Enrolment rate per 1000 population",
-          "scale": {
-            "type": "quantize",
-            "domain": [0, 600],
-            "scheme": { "name": "browns", "count": 5 }
-          }
+          "scale": { "type": "quantize", "domain": [0, 600], "scheme": { "name": "browns", "count": 5 } }
         },
-
         "tooltip": [
           { "field": "state_norm", "title": "State" },
           { "field": "stage", "title": "Stage" },
@@ -81,17 +74,12 @@
     }
   ],
 
-
-
   "config": {
-  "font": "DM Sans",
-  "title": { "font": "PT Serif", "fontSize": 18, "fontWeight": 700 },
-  "axis":  { "labelFont": "DM Sans", "titleFont": "PT Serif" },
-  "legend":{ "labelFont": "DM Sans", "titleFont": "PT Serif" },
-
-  "scale": { "invalid": { "color": { "value": "lightgray" } } },
-
-  "mark": { "invalid": "show" }
-}
-
+    "font": "DM Sans",
+    "title": { "font": "PT Serif", "fontSize": 18, "fontWeight": 700 },
+    "axis":  { "labelFont": "DM Sans", "titleFont": "PT Serif" },
+    "legend":{ "labelFont": "DM Sans", "titleFont": "PT Serif" },
+    "scale": { "invalid": { "color": { "value": "lightgray" } } },
+    "mark": { "invalid": "show" }
+  }
 }
