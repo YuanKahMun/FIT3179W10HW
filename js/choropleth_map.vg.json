@@ -24,7 +24,7 @@
   "layer": [
     {
       "data": { "graticule": { "step": [3, 3] } },
-      "mark": { "type": "geoshape", "fill": null, "stroke": "#d9d9d9", "strokeWidth": 0.5, "opacity": 0.8 }
+  "mark": { "type": "geoshape", "fill": null, "stroke": "#d9d9d9", "strokeWidth": 0.5, "opacity": 0.8 }
     },
 
     {
@@ -32,7 +32,7 @@
         "url": "../data/malaysia_states.topojson",
         "format": { "type": "topojson", "feature": "states" }
       },
-      "mark": { "type": "geoshape", "fill": "#f2f2f2", "stroke": "white", "strokeWidth": 0.5 }
+  "mark": { "type": "geoshape", "fill": "#f2f2f2", "stroke": "white", "strokeWidth": 0.5 }
     },
 
     {
@@ -53,7 +53,7 @@
           }
         }
       ],
-      "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 0.5 },
+  "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 0.5 },
       "encoding": {
         "color": {
           "field": "students_per_1000_pop",
@@ -83,7 +83,7 @@
         { "calculate": "toNumber(datum.lat)", "as": "lat_n" },
         { "calculate": "toNumber(datum.lng)", "as": "lng_n" },
         { "window": [{ "op": "rank", "as": "r" }], "sort": [{ "field": "rate", "order": "descending" }] },
-        { "calculate": "datum.r + '. ' + datum.state_norm", "as": "label" },
+        { "calculate": "toString(datum.r) + '. ' + datum.state_norm", "as": "label" },
         { "filter": "datum.r <= 5" }
       ],
       "mark": {
@@ -96,7 +96,7 @@
       "encoding": {
         "longitude": { "field": "lng_n" },
         "latitude":  { "field": "lat_n" },
-      "text": { "field": "label", "type": "nominal" },
+  "text": { "field": "label", "type": "nominal" },
         "tooltip": [
           { "field": "r", "title": "Rank" },
           { "field": "state_norm", "title": "State" },
@@ -105,7 +105,7 @@
       }
     }
 
-1
+
 
 
   ],
